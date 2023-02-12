@@ -2,8 +2,14 @@ import { RepositoryItem } from "./RepositoryItem";
 import "../styles/repositories.scss";
 import { useState, useEffect } from "react";
 
+interface Repository {
+  name: string;
+  description: string;
+  html_url: string;
+}
+
 export function RepositoryList() {
-  const [repos, setRepos] = useState([]);
+  const [repos, setRepos] = useState<Repository[]>([]);
 
   useEffect(() => {
     fetch("https://api.github.com/orgs/facebook/repos")
@@ -18,7 +24,7 @@ export function RepositoryList() {
 
       <ul>
         {repos.map((repo) => {
-          return <RepositoryItem key={repo.id} repository={repo} />;
+          return <RepositoryItem key={repo.name} repository={repo} />;
         })}
       </ul>
     </section>
